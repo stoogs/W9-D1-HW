@@ -1,12 +1,14 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cohort {
     private String name;
     private List<Student> students;
-
+    private List<Student> pairs;
     public Cohort(String name) {
         this.students = new ArrayList<Student>();
+        this.pairs = new ArrayList<Student>();
         this.name = name;
     }
 
@@ -30,4 +32,11 @@ public class Cohort {
         students.add(student);
     }
 
+    public List<Student> getPairs() {
+        return pairs;
+    }
+
+    public void setPairs(List<Student> pairs) {
+        this.pairs = pairs;
+    }
 }//end

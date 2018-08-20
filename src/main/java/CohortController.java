@@ -52,14 +52,33 @@ public class CohortController {
 
 
         get("/cohorts", (req, res) -> {
-            HashMap<String, Object> model = new HashMap<>();
-            model.put("cohorts", cohort);
-            model.put("cohort1", student1);
+//            Random generator = new Random();
+//            int randomIndex = generator.nextInt(cohort.getStudents().size());
+//            Student chosenOne = cohort.getStudents().get(randomIndex);
+//            int randomIndex2 = generator.nextInt(cohort.getStudents().size());
+//            Student chosenTwo = cohort.getStudents().get(randomIndex);
+              //model.put("chosenOne", chosenOne);
 
+            HashMap<String, Object> model = new HashMap<>();
+            Random random = new Random();
+            List<Student> chooseFromList = cohort.getStudents();
+            int randomIndex = random.nextInt(chooseFromList.size());
+            Student chosenOne = chooseFromList.get(randomIndex);
+            int randomIndex2 = random.nextInt(chooseFromList.size());
+            Student chosenTwo = chooseFromList.get(randomIndex2);
+            int randomIndex3 = random.nextInt(chooseFromList.size());
+
+            if (chosenOne == chosenTwo) {
+                chosenTwo = chooseFromList.get(randomIndex3);
+                System.out.println("Avoided SELF-PAIR");
+            }
+            //return cohort.getStudents()[random.nextInt(cohort.getStudents().size())];
+            model.put("chosenOne", chosenOne.getName());
+            model.put("chosenTwo", chosenTwo.getName());
             model.put("template", "cohorts.vtl");
             return new ModelAndView(model, "layout.vtl");
         }, velocityTemplateEngine);
-        Collections.shuffle(cohort.getStudents());
+
 
 
         get("/random", (req, res) -> {
